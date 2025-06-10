@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+        <div class="container down">
+            <div class="row justify-content-center">
+                <div class="col-md-6 bg-white p-4 mb-4 mx-3 text-center rounded custom-shadow" style="position: relative;">
+                <h3 class="text-danger">Вы уверены, что хотите удалить квартиру "{{ apartment.apartment_name }}"?</h3>
+                <p class="text-muted">При удалении будут удалены все связанные с ней данные.</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                    <a href="{% url 'apartaments:user_objects' %}" class="btn btn-secondary">Отмена</a>
+                </form>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

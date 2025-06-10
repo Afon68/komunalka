@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% comment %} {% load cache %}
+{% load carts_tags %} {% endcomment %}
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Профиль с данными пользователя -->
+                <div class="col-md-5">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                        <h3 class="text-center mb-4">Профиль пользователя</h3>
+                        <form action="{% url "users:profile" %}"
+                              method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12 mb-3 text-center">
+                                    {% if user.image %}
+                                        <img src="{{ user.image.url }}"
+                                             alt="Аватар пользователя"
+                                             class="img-fluid rounded-circle"
+                                             style="max-width: 150px">
+                                    {% else %}
+                                        <img src="{% static "deps/images/profile.png" %}"
+                                             alt="Аватар пользователя"
+                                             class="img-fluid rounded-circle"
+                                             style="max-width: 150px">
+                                    {% endif %}
+                                    <input type="file"
+                                           class="form-control mt-3"
+                                           id="id_image"
+                                           name="image"
+                                           accept="image/*">
+                                    {% if image.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ image.errors }}</div>{% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_first_name" class="form-label">Имя*</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="id_first_name"
+                                           name="first_name"
+                                           placeholder="Введите ваше имя"
+                                           value="{{ form.first_name.value }}"
+                                           required>
+                                    {% if form.first_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_last_name" class="form-label">Фамилия*</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="id_last_name"
+                                           name="last_name"
+                                           placeholder="Введите вашу фамилию"
+                                           value="{{ form.last_name.value }}"
+                                           required>
+                                    {% if form.last_name.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_username" class="form-label">Имя пользователя*</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="id_username"
+                                           name="username"
+                                           placeholder="Введите ваше имя пользователя"
+                                           value="{{ form.username.value }}"
+                                           required>
+                                    {% if form.username.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="id_email" class="form-label">Email*</label>
+                                    <input type="email"
+                                           class="form-control"
+                                           id="id_email"
+                                           name="email"
+                                           placeholder="Введите ваш email *youremail@example.com"
+                                           value="{{ form.email.value }}"
+                                           required>
+                                    {% if form.email.errors %}
+                                        <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Сохранить</button>
+                        </form>
+                    </div>    
+                 </div>    
+                <div class="col-md-5">
+                    <div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+                    <h3 class="text-center mb-4">Мои квартиры</h3>
+                        <div class="container" id="cart-items-container">
+                            
+                                <div class="container my-4">
+                                    <!-- Кнопка добавления квартиры -->
+                                    <div class="d-flex justify-content-end mb-3">
+                                        <a href="{% url 'apartaments:add_apartment' %}" class="btn btn-success ">
+                                            ➕ Добавить квартиру
+                                        </a>
+                                    </div>
+                                    <!-- Список квартир -->
+                                    {% for apartment in apartments %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card p-3 mb-3 shadow-sm">
+                                                    <!-- Кнопка-название во всю ширину -->
+                                                    <a href="{% url 'apartaments:apartment_profile' apartment.id %}" class="btn btn-success btn-lg w-100 mb-3 text-start">
+                                                    <h5 class="mb-0 text-center">🏠{{ apartment.apartment_name }}</h5>
+                                                    </a>
+
+                                                    <!-- Нижний ряд кнопок -->
+                                                    <div class="d-flex justify-content-between gap-2">
+                                                    <a href="{% url "services:indications" apartment.id %}" class="btn btn-outline-primary btn-sm flex-fill">
+                                                        📋Внести показания
+                                                    </a>
+                                                    <a href="{% url 'apartaments:user_objects' apartment.id %}" class="btn btn-outline-danger btn-sm flex-fill">
+                                                        🗑️ Удалить
+                                                    </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <p class="text-muted text-center">Пока нет добавленных квартир.</p>
+                                    {% endfor %}
+                                </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!-- Вода -->
+
+                {% if apartment.has_electricity is not None %}
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    {% if apartment.has_electricity > 0 %}
+                    <th>Предыдущие показание счётчика</th>
+                    <th>Текущее показание счётчика</th>
+                    <th>Расход</th>
+                    <th>Тариф по счётчику</th>
+                    {% endif %}
+                    {% if apartment.has_electricity == 2 %}
+                    <th>Предыдущие показание счётчика #2</th>
+                    <th>Текущее показание счётчика #2</th>
+                    <th>Расход #2</th>
+                    <th>Тариф по счётчику #2</th>
+                    {% endif %}
+                    {% if apartment.has_electricity == 0 %}
+                    <th>Тариф без счётчика</th>
+                    <th>Электрическая мощность квартиры</th>
+                    {% endif %}
+                    <th>Оплата за электричество</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in electricity_data %}
+                    <tr>
+                    <td class="utc-date">{{ data.timestamp|date:"c" }}</td>
+                    {% if apartment.has_electricity > 0 %}
+                    <td>{{ data.prev_value_one }}</td>
+                    <td>{{ data.electro_meter_one }}</td>
+                    <td>{{ data.consumption_one }}</td>
+                    <td>{{ data.electro_tariff_one }}</td>
+                    {% endif %}
+                    {% if apartment.has_electricity == 2 %}
+                    <td>{{ data.prev_value_two }}</td>
+                    <td>{{ data.electro_meter_two }}</td>
+                    <td>{{ data.consumption_two }}</td>
+                    <td>{{ data.electro_tariff_two }}</td>
+                    {% endif %}
+                    {% if apartment.has_electricity == 0 %}
+                    <td>{{ data.electro_tariff_no_counter }}</td>
+                    <td>{{ data.electro_power_apartment }}</td>
+                    {% endif %}
+                    <td>{{ data.el_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                {% endif %}
+            </div>

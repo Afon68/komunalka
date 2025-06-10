@@ -1,0 +1,60 @@
+<!-- Вода -->
+
+                {% if apartment.has_water is not None %}
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    {% if apartment.has_water > 0 %}
+                    <th>Предыдущие показание счётчика</th>
+                    <th>Текущее показание счётчика</th>
+                    <th>Расход</th>
+                    <th>Тариф по счётчику</th>
+                    {% endif %}
+                    {% if apartment.has_water == 2 %}
+                    <th>Предыдущие показание счётчика #2</th>
+                    <th>Текущее показание счётчика #2</th>
+                    <th>Расход #2</th>
+                    {% endif %}
+                    {% if apartment.has_water == 0 %}
+                    <th>Тариф без счётчика</th>
+                    <th>Кол-во зарег.жильцов</th>
+                    {% endif %}
+                    <th>Оплата за воду</th>
+                    {% if apartment.has_water_abon_plata %}
+                    <th>Абонплата</th>
+                    <th>Сумма с абонплатой</th>
+                    {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in water_data %}
+                    <tr>
+                    <td class="utc-date">{{ data.timestamp|date:"c" }}</td>
+                    {% if apartment.has_water > 0 %}
+                    
+                    <td>{{ data.prev_value_one }}</td>
+                    <td>{{ data.water_meter_one }}</td>
+                    <td>{{ data.consumption_one }}</td>
+                    <td>{{ data.water_tariff_counter }}</td>
+                    {% endif %}
+                    {% if apartment.has_water == 2 %}
+                    <td>{{ data.prev_value_two }}</td>
+                    <td>{{ data.water_meter_two }}</td>
+                    <td>{{ data.consumption_two }}</td>
+                    {% endif %}
+                    {% if apartment.has_water == 0 %}
+                    <td>{{ data.water_tariff_nocounter }}</td>
+                    <td>{{ data.number_registered_snapshot }}</td>
+                    {% endif %}
+                    <td>{{ data.water_total }}</td>
+                    {% if apartment.has_water_abon_plata %}
+                    <td>{{ data.water_abon_plata }}</td>
+                    <td>{{ data.total_with_abon_plata }}</td>
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                {% endif %}
+            </div>

@@ -1,0 +1,47 @@
+<!--Горячая вода-->
+
+                {% if apartment.has_hot_water is not None %}
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    {% if apartment.has_hot_water == 1 %}
+                    <th>Предыдущие показание счетчика</th>
+                    <th>Текущее показание счётчика</th>
+                    <th>Расход</th>
+                    <th>Тариф на горячую воду по счётчику</th>
+                    <th>Тариф на нагрев воды по счётчику</th>
+                    {% endif %}
+                    {% if apartment.has_hot_water == 0 %}
+                    <th>Тариф на горячую воду без счётчика</th>
+                    <th>Тариф на нагрев без счётчика</th>
+                    <th>Кол-во зарег.жильцов</th>
+                    {% endif %}
+                    <th>Плата за нагрев воды</th>
+                    <th>Плата за воду</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in hot_water_data %}
+                    <tr>
+                    <td class="utc-date">{{ data.timestamp|date:"c" }}</td>
+                    {% if apartment.has_hot_water == 1 %}
+                    <td>{{ data.hot_prev_value }}</td>
+                    <td>{{ data.hot_water_meter }}</td>
+                    <td>{{ data.hot_consumption }}</td>
+                    <td>{{ data.hot_water_tariff_counter }}</td>
+                    <td>{{ data.heating_tariff_counter }}</td>
+                    {% endif %}
+                    {% if apartment.has_hot_water == 0 %}
+                    <td>{{ data.hot_water_tariff_no_counter }}</td>
+                    <td>{{ data.heating_tariff_no_counter }}</td>
+                    <td>{{ data.number_registered }}</td>
+                    {% endif %}
+                    <td>{{ data.total_heating }}</td>
+                    <td>{{ data.total_water }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                {% endif %}
+            </div>

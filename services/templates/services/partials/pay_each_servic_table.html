@@ -1,0 +1,69 @@
+    <div class="tab-pane fade" id="summary" role="tabpanel">
+                <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    {% for servic in services %}
+                    <th>{{ servic }}</th>
+                    {% endfor %}
+                    {% if apartment.has_water is not None and not apartment.has_water_abon_plata %}
+                    <th>Вода</th>
+                    {% endif %}
+                    {% if apartment.has_water_abon_plata %}
+                    <th>Вода с абонплатой</th>
+                    {% endif %}
+                    {% if apartment.has_hot_water is not None %}
+                    <th>Горячая вода(счётчик)</th>
+                    <th>Плата за нагрев горячей воды</th>
+                    {% endif %}
+                    <th>Общая сумма</th>
+                    </tr>
+                </thead>
+                </tbody> 
+                <tbody> 
+                           {% for item in summary %}
+                        <tr>
+                        <td class="utc-date">{{ item.timestamp|date:"c" }}</td>
+                        {% if apartment.has_gas is not None %}
+                        <td>{{ item.gas_total }}</td>
+                            {% endif %}
+                        {% if apartment.has_gas_delivery %}
+                        <td>{{ item.gas_delivery }}</td>
+                            {% endif %}
+                            {% if apartment.has_electricity is not None %}
+                        <td>{{ item.el_total }}</td>
+                            {% endif %}
+                            {% if apartment.uses_lift %}
+                        <td>{{ item.total_lift }}</td>
+                            {% endif %}
+                            {% if apartment.has_garbage %}
+                        <td>{{ item.total_garbage }}</td>
+                            {% endif %}
+                            {% if apartment.has_apart_payment %}
+                        <td>{{ item.total_apart_payment }}</td>
+                            {% endif %}
+                            {% if apartment.has_internet %}
+                        <td>{{ item.internet }}</td>
+                            {% endif %}
+                            {% if apartment.has_intercom %}
+                        <td>{{ item.intercom }}</td>
+                            {% endif %}
+                            {% if apartment.has_heating %}
+                        <td>{{ item.general_heating }}</td>
+                            {% endif %}
+                            {% if apartment.has_water is not None and not apartment.has_water_abon_plata %}
+                        <td>{{ item.water_total }}</td>
+                            {% endif %}
+                            {% if apartment.has_water_abon_plata %}
+                        <td>{{ item.total_with_abon_plata }}</td>
+                            {% endif %}
+                            {% if apartment.has_hot_water is not None %}
+                        <td>{{ item.total_water }}</td>
+                        <td>{{ item.total_heating }}</td>
+                        {% endif %}
+                        <td>{{ item.total_amount }}</td>
+                        </tr> 
+                        {% endfor %}
+                </tbody> 
+                </table>
+            </div>

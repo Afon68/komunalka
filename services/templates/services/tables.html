@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load form_tags %}
+
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+<!-- Навигация по вкладкам -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-12 bg-white p-4 rounded shadow">
+            <h3 class="mb-4 text-center">Таблицы расходов по <strong><a class="tect" href="{% url 'apartaments:apartment_profile' apartment.id %}">"{{ apartment.apartment_name }}"</a></strong></h3>
+             <div class="text-end">
+                    <a  href="{% url 'apartaments:apartment_profile' apartment.id %}" class="btn btn-outline-primary">Профиль квартиры</a>
+                    <a  href="{% url 'services:last_entry' apartment.id %}" class="btn btn-outline-primary">Редактировать текущую запись</a>
+                </div>
+                 {% if  warn %}
+                    <h7 class="form">***Первое внесение показаний используется как отправная точка. 
+                            Оплата будет <br> рассчитана после второго внесения данных,
+                             поэтому для быстрого старта, <br> вначале использования приложения 
+                             можно внести показания за прошлый период!</h7> 
+                {% endif %}
+            <ul class="nav nav-tabs bg-white mt-5" id="utilityTabs" role="tablist">
+                {% comment %} {% if apartment.has_gas is not None %} {% endcomment %}
+                {% for lable, tab in tabs %}
+                <li class="nav-item" role="presentation">
+                    <button {% if tab == first_tab %} class="nav-link active" {% else %} class="nav-link" {% endif %} id="{{tab}}-tab" data-bs-toggle="tab" data-bs-target="#{{tab}}" type="button" role="tab">{{lable}}</button>
+                </li>
+                {% endfor %}
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab">Все услуги</button>
+                </li> 
+            </ul> 
+            
+            <!-- Контент вкладок -->
+            <div class="tab-content mt-3" id="utilityTabsContent">
+            <!-- Газ -->
+            {% for lable, tab in tabs %}
+                <div {% if tab == first_tab %} class="tab-pane fade show active" {% else %} class="tab-pane fade" {% endif %} id="{{tab}}" role="tabpanel">
+            {% include "services/partials/"|add:tab|add:"_table.html" %}
+            {% endfor %}
+            {% include "services/partials/pay_each_servic_table.html" %}
+           
+        </div>
+    </div>
+</div>
+{% endblock content %}

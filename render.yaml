@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: komunalka
+    region: frankfurt
+    runtime: python
+    # buildCommand:  pip install -r requirements.txt
+    buildCommand: "./build.sh"
+    startCommand:  gunicorn komunalka.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.9
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: value: "*"
+      - key: DJANGO_SETTINGS_MODULE
+        value: komunalka.settings
+      - key: DATABASE_URL
+        sync: false
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: CLOUDINARY_CLOUD_NAME
+        value: false
+      - key: CLOUDINARY_API_KEY
+        value: false
+      - key: CLOUDINARY_API_SECRET
+        value: false
+      - key: RENDER
+        value: True
+      - key: WEB_CONCURRENCY
+        value: 4
+    autoDeploy: true
+databases:
+  - name: komunalka-db
+
+postdeploy:
+  command: >
+    python manage.py migrate &&
+    echo "
+from django.contrib.auth import get_user_model;
+User = get_user_model();
+username = 'admin';
+email = 'admin@example.com';
+password = 'admin123';
+User.objects.filter(username=username).exists() or User.objects.create_superuser(username, email, password)
+" | python manage.py shell
+
+
+

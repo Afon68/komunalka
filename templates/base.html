@@ -1,0 +1,117 @@
+{% load static %}
+{% load apartaments_tags %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "komunalka/css/bootstrap/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "komunalka/css/my_file.css" %}">  <!--<link rel="stylesheet" href="{% static 'deps/css/my_css.css?v=1' %}"
+         для жесткой(100%) перезагрузки стилей>-->
+    <!-- Favicons for different platforms -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "komunalka/favicon/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "komunalka/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "komunalka/favicon/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "komunalka/favicon/site.webmanifest" %}">
+
+    {% block title %}
+    {% endblock  %}
+    
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-dark navbar-position" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url "main:index" %}">Home</a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+               
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                         
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url "main:about" %}">О проекте</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url "apartaments:user_objects" %}">Мои квартиры</a>
+                        </li>
+                        {% if user and apartment_id %}
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url "services:tables" apartment_id %}">Таблицы расходов</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">            
+                            <a class="nav-link  text-white" href="{% url "users:profile" %}">Личный кабинет</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_superuser or user.is_staff %} 
+                        <li class="nav-item">           
+                            <a class="nav-link  text-white" href="{% url "admin:index" %}">Админ панель</a>
+                        </li>
+                        {% endif %}
+                        {% if user and apartment_id %}
+                         <li class="nav-item">           
+                            <a class="nav-link  text-white" href="{% url "services:indications" apartment_id %}">Внести показания</a>
+                        </li>
+                        {% endif %}
+                       
+                    </ul>
+                     {% if user and apartment_id %}
+                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url "services:tables" apartment_id %}">{{apartment.apartment_name}}</a>
+                        </li>
+                    </ul>
+                        {% endif %}
+                  
+
+                    <div class="d-flex justify-content-end align-items-center ms-5">
+                        {% if not user.is_authenticated %}
+                            <a class="nav-link text-white me-3" href="{% url 'users:login' %}">Войти</a>
+                        {% else %}
+                            <a class="nav-link text-white me-3" href="{% url 'users:logout' %}">Выйти</a>
+                            <a class="nav-link text-white me-3" href="#">{{ user.username }}</a>
+                            {% if user.image %}
+                                <a href="{% url 'users:profile' %}">
+                                    <img class="rounded-circle" src="{{ user.image.url }}" alt="Profile Image" width="30" height="30">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'users:profile' %}">
+                                    <img class="rounded-circle" src="{% static 'komunalka/icons/user.png' %}" alt="Profile Icon" width="30" height="30">
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header> 
+
+    <!-- Объявление -->
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                {% include "includes/notification.html" %}
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static "komunalka/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "komunalka/js/jquery/jquery-3.7.0.min.js" %}"></script>
+    <script src="{% static "komunalka/js/jquery-ajax.js" %}"></script>
+    <script src="{% static "komunalka/js/komunalka_js.js" %}"></script>
+</body>
+
+</html>

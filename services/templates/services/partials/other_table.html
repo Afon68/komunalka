@@ -1,0 +1,66 @@
+
+                {% if apartment.uses_lift or apartment.has_garbage or apartment.has_apart_payment or apartment.has_internet or apartment.has_intercom or apartment.has_heating %}
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    <th>Количество зарег-х в квартире</th>
+                    {% if apartment.has_apart_payment %}
+                    <th>Тариф квартплата</th>
+                    <th>Квартплата</th>
+                    {% endif %}
+                    {% if apartment.has_garbage %}
+                    <th>Тариф на вывоз мусора</th>
+                    <th>Плата за вывоз мусора</th>
+                    {% endif %}
+                    {% if apartment.uses_lift %}
+                    <th>Тариф на лифт</th>
+                    <th>Плата за лифт</th>
+                    {% endif %}
+                    {% if apartment.has_heating %}
+                    <th>Тариф на отопление </th>
+                    <th>Площадь квартиры </th>
+                    <th>Плата за отопление</th>
+                    {% endif %}
+                    {% if apartment.has_internet %}
+                    <th>Плата за интернет</th>
+                    {% endif %}
+                    {% if apartment.has_intercom %}
+                    <th>Плата за домофон</th>
+                    {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in other_data %}
+                    <tr>
+                    <td class="utc-date">{{ data.timestamp|date:"c" }}</td>
+                    <td>{{ data.number_registered_snapshot }}</td>
+                    {% if apartment.has_apart_payment %}
+                    <td>{{ data.tariff_apart_payment }}</td>
+                    <td>{{ data.total_apart_payment }}</td>
+                    {% endif %}
+                    {% if apartment.has_garbage %}
+                    <td>{{ data.tariff_garbage }}</td>
+                    <td>{{ data.total_garbage }}</td>
+                    {% endif %}
+                    {% if apartment.uses_lift %}
+                    <td>{{ data.tariff_lift }}</td>
+                    <td>{{ data.total_lift }}</td>
+                    {% endif %}
+                     {% if apartment.has_heating %}
+                    <td>{{ data.tariff_heating }}</td>
+                    <td>{{ data.area_apartment }}</td>
+                    <td>{{ data.total_heating }}</td>
+                    {% endif %}
+                     {% if apartment.has_internet %}
+                    <td>{{ data.internet }}</td>
+                    {% endif %}
+                    {% if apartment.has_intercom %}
+                    <td>{{ data.intercom }}</td>
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                {% endif %}
+            </div>

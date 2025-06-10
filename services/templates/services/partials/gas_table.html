@@ -1,0 +1,45 @@
+<!-- Газ --> 
+
+                {% if apartment.has_gas is not None %}
+                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>Дата</th>
+                    {% if apartment.has_gas == 1 %}
+                    <th>Предыдущие показание</th>
+                    <th>Последнее показание</th>
+                    <th>Расход</th>
+                    <th>Тариф по счётчику</th>
+                    {% else %}
+                    <th>Тариф без счётчика</th>
+                    <th>Кол-во зарег.жильцов</th>
+                    {% endif %}
+                    {% if apartment.has_gas_delivery %}
+                    <th>Оплата доставки газа</th>
+                    {% endif %}
+                    <th>Оплата за газ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in gas_data %}
+                    <tr>
+                    <td class="utc-date">{{ data.timestamp|date:"c" }}</td>
+                    {% if apartment.has_gas == 1 %}
+                    <td>{{ data.prev_value }}</td>
+                    <td>{{ data.gas_meter }}</td>
+                    <td>{{ data.consumption }}</td>
+                    <td>{{ data.gas_tariff_counter }}</td>
+                    {% else %}
+                    <td>{{ data.gas_tariff_no_counter }}</td>
+                    <td>{{ data.number_registered }}</td>
+                    {% endif %}
+                    {% if apartment.has_gas_delivery %}
+                    <td>{{ data.gas_delivery }}</td>
+                    {% endif %}
+                    <td>{{ data.gas_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+                {% endif %}
+            </div>

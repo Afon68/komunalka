@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="container down">
+            <div class="row justify-content-center">
+                <div class="col-md-6 bg-white p-4 mb-4 mx-3 rounded custom-shadow">
+                    <a href="{% url "apartaments:user_objects" %}">
+                        <img class="mx-1 close"
+                             src="{% static "deps/images/Icon-Close.png" %}"
+                             alt="Close"
+                             width="24"
+                             height="24">
+                    </a>
+                    <h1 class="text-center">Добавление квартиры</h1>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- Название квартиры -->
+                        <div class="section">
+                            {{ form.apartment_name.label_tag }}
+                            {{ form.apartment_name }}
+
+                            {% if form.apartment_name.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.apartment_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Газ -->
+                        <div class="section">
+                            {{ form.has_gas_checkbox }}
+                            {{ form.has_gas_checkbox.label_tag }}
+                            
+                          <div id="gas-options" class="hidden"> 
+                                
+                                {{ form.gas_type }}
+                                {{ form.has_gas_delivery }}
+                                {{ form.has_gas_delivery.label_tag }}
+                            </div> 
+                        </div> 
+
+                        <!-- Вода -->
+                        <div class="section">
+                            {{ form.has_water_checkbox }}
+                            {{ form.has_water_checkbox.label_tag }}
+                            <div id="water-options" class="hidden">
+                                {{ form.has_water_abon_plata }}
+                                {{ form.has_water_abon_plata.label_tag }}
+                                {{ form.water_type }}
+                            </div>
+                        </div>
+                        <!-- Горячая вода -->
+                        <div id="hot_section" class="section hidden">
+                            {{ form.has_hot_water_checkbox }}
+                            {{ form.has_hot_water_checkbox.label_tag }}
+                            <div id="hot_water-options" class="hidden">
+                                {{ form.hot_water_type }}
+                            </div>
+                        </div>
+
+                        <!-- Электричество -->
+                        <div class="section">
+                            {{ form.has_electricity_checkbox }}
+                            {{ form.has_electricity_checkbox.label_tag }}
+                            <div id="electrika-options" class="hidden">
+                                {{ form.elektrika_type }}
+                            </div>
+                        </div>
+
+                        <!-- Центр.отопление -->
+                        <div class="section">
+                            
+                            {{ form.has_heating }}
+                            {{ form.has_heating.label_tag }}
+                           
+                            <div id="heating-options" class="visible">
+                                {{ form.area_apartment.label_tag }}{{ form.area_apartment }}
+                            </div>
+                        </div>
+
+                        <!-- Остальные чекбоксы -->
+                        <div class="section">
+                            {{ form.uses_lift }} {{ form.uses_lift.label_tag }}<br>
+                            {{ form.has_garbage }} {{ form.has_garbage.label_tag }}<br>
+                            {{ form.has_apart_payment }} {{ form.has_apart_payment.label_tag }}<br>
+                            {{ form.has_intercom }} {{ form.has_intercom.label_tag }}<br>
+                            {{ form.has_internet }} {{ form.has_internet.label_tag }}<br>
+                            
+                            <div id="lift-options" class="visible">
+                                {{ form.number_registered.label_tag }}{{ form.number_registered }}
+                                {% if form.number_registered.errors %}
+                                    <div class="text-danger">{{ form.number_registered.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        
+                       
+                        <button type="submit" class="btn btn-success mt-3">Сохранить</button>
+                        <a href="{% url 'apartaments:user_objects' %}" class="btn btn-outline-success mt-3">Отмена</a>
+                       
+                    </form>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+

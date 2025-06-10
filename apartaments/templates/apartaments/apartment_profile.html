@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="row">
+    <div class="container down">
+        <div class="row justify-content-center">
+            <div class="col-md-6 bg-white p-4 mb-4 mx-3 rounded custom-shadow">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body text-center">
+                        <h3 class="card-title mb-4">{{ apartment.apartment_name }}</h3>
+                        <div class="row row-cols-1 row-cols-md-2 text-center">
+                            
+                            <div class="col mb-3">
+                                <strong>Отопление:</strong> {{ apartment.has_heating|yesno:"Есть,Нет" }}
+                            </div>
+                            {% if apartment.area_apartment  %}
+                            <div class="col mb-3">
+                                <strong>Площадь:</strong> {{ apartment.area_apartment }} м²
+                            </div>
+                            {% else %}
+                            <div class="col mb-3">
+                                <strong>Площадь:</strong> Не указана
+                            </div>
+                            {% endif %}
+                            {% if apartment.has_gas >= 0 %}
+                            <div class="col mb-3">
+                                <strong>Газ:</strong> Есть - {{ apartment.has_gas }} счётчик(а)
+                            </div>
+                            {% else %}
+                            <div class="col mb-3">
+                                <strong>Газ:</strong> Нет
+                            </div>
+                            {% endif %}
+                             <div class="col mb-3">
+                                <strong>Доставка газа:</strong> {{ apartment.has_gas_delivery|yesno:"Есть,Нет" }}
+                            </div>
+                            {% if apartment.has_water >= 0 %}
+                            <div class="col mb-3">
+                                <strong>Вода:</strong>  Есть - {{ apartment.has_water }} счётчик(а)
+                            </div>
+                            {% else %}
+                            <div class="col mb-3">
+                                <strong>Вода:</strong> Нет
+                            </div>
+                            {% endif %}
+                            <div class="col mb-3">
+                                <strong>Абонплата воды:</strong> {{ apartment.has_water_abon_plata|yesno:"Есть,Нет" }}
+                            </div>
+                             {% if apartment.has_hot_water >= 0 %}
+                            <div class="col mb-3">
+                                <strong>Горячая вода:</strong> Есть - {{ apartment.has_hot_water }} счётчик(а)
+                            </div>
+                            {% else %}
+                            <div class="col mb-3">
+                                <strong>Горячая вода:</strong> Нет
+                            </div>
+                            {% endif %}
+                            {% if apartment.has_electricity is not None %}
+                            <div class="col mb-3">
+                                <strong>Электричество:</strong>  Есть - {{ apartment.has_electricity }} счётчик(а)
+                            </div>
+                            {% else %}
+                            <div class="col mb-3">
+                                <strong>Электричество:</strong> Нет
+                            </div>
+                            {% endif %}
+                            <div class="col mb-3">
+                                <strong>Интернет:</strong> {{ apartment.has_internet|yesno:"Есть,Нет" }}
+                            </div>
+                            <div class="col mb-3">
+                                <strong>Домофон:</strong> {{ apartment.has_intercom|yesno:"Есть,Нет" }}
+                            </div>
+                            <div class="col mb-3">
+                                <strong>Лифт:</strong> {{ apartment.uses_lift|yesno:"Есть,Нет" }}
+                            </div>
+                            <div class="col mb-3">
+                                <strong>Вывоз мусора:</strong> {{ apartment.has_garbage|yesno:"Есть,Нет" }}
+                            </div>
+                            <div class="col mb-3">
+                                <strong>Квартплата:</strong> {{ apartment.has_apart_payment|yesno:"Есть,Нет" }}
+                            </div>
+                           
+                            <div class="col mb-3">
+                                <strong>Кол-во зарег-х жильцов:</strong> {% if apartment.number_registered  %}{{ apartment.number_registered }}{% else %} Не указано{% endif %}
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{% url 'apartaments:edit_apartment' apartment.id %}" class="btn btn-outline-primary">✏️ Редактировать</a>
+                            <a href="{% url 'apartaments:user_objects' %}" class="btn btn-outline-success">Мои квартиры</a>
+                            <a href="{% url "services:indications" apartment.id %}" class="btn btn-outline-success">Внести показания</a>
+                            <a href="{% url "services:tables" apartment.id %}" class="btn btn-outline-success">Таблицы</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

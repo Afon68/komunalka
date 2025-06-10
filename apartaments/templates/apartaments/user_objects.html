@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock title %}
+
+{% block content %}
+    
+<div class="row">
+    <div class="container down">
+        <div class="row justify-content-center">
+            <div class="col-md-8 bg-white p-4 mb-4 mx-3 text-center rounded custom-shadow" style="position: relative;">
+            <h3 class="text-center mb-4">Мои квартиры</h3>
+                <div class="container" id="cart-items-container">
+                    <div class="container my-4">
+                <!-- Кнопка добавления квартиры -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="{% url 'apartaments:add_apartment' %}" class="btn btn-success ">
+                                ➕ Добавить квартиру
+                            </a>
+                        </div>
+                <!-- Список квартир -->
+                     {% for apartment in apartments %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card p-3 mb-3 shadow-sm">
+                                    <!-- Кнопка-название во всю ширину -->
+                                    <a href="{% url 'apartaments:apartment_profile' apartment.id %}" class="btn btn-success w-100 mb-3 text-start">
+                                    <h5 class="mb-0 text-center">🏠{{ apartment.apartment_name }}</h5>
+                                    </a>
+
+                                    <!-- Нижний ряд кнопок -->
+                                    <div class="d-flex justify-content-between gap-2">
+                                    <a href="{% url "services:indications" apartment.id %}" class="btn btn-outline-primary flex-fill">
+                                        📋Внести показания
+                                    </a>
+                                    <a href="{% url 'apartaments:user_objects' apartment.id %}" class="btn btn-outline-danger flex-fill">
+                                        🗑️ Удалить
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted text-center">Пока нет добавленных квартир.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
