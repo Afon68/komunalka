@@ -11,7 +11,7 @@ services:
       - key: DEBUG
         value: "False"
       - key: DJANGO_ALLOWED_HOSTS
-        value: "komunalka-9jok.onrender.com"
+        value: "komunalka-eaxj.onrender.com"
       - key: DJANGO_SETTINGS_MODULE
         value: komunalka.settings
       - key: DATABASE_URL
