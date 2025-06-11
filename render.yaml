@@ -3,9 +3,8 @@ services:
     name: komunalka
     region: frankfurt
     runtime: python
-    # buildCommand:  pip install -r requirements.txt
     buildCommand: "./build.sh"
-    startCommand:  gunicorn komunalka.wsgi:application
+    startCommand: gunicorn komunalka.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.9
@@ -16,7 +15,9 @@ services:
       - key: DJANGO_SETTINGS_MODULE
         value: komunalka.settings
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: komunalka-db
+          property: connectionString
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: RENDER
@@ -24,8 +25,11 @@ services:
       - key: WEB_CONCURRENCY
         value: 4
     autoDeploy: true
+
 databases:
   - name: komunalka-db
+    plan: free
+    region: frankfurt
 
 postdeploy:
   command: >
@@ -38,6 +42,3 @@ email = 'admin@example.com';
 password = 'admin123';
 User.objects.filter(username=username).exists() or User.objects.create_superuser(username, email, password)
 " | python manage.py shell
-
-
-
