@@ -39,8 +39,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # ALLOWED_HOSTS = ["*"] 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split()
-# ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]").split()
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split()
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]").split()
 
 # ALLOWED_HOSTS = [] до деплоя
 
