@@ -30,10 +30,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key-for-local-d
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://komunalka.onrender.com",
+    "https://komunalka-9jok.onrender.com",
     "https://*.onrender.com"
 ]
 
@@ -41,7 +41,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # ALLOWED_HOSTS = ["*"] 
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split()
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]").split()
-
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'komunalka-9jok.onrender.com,*.onrender.com').split()
 # ALLOWED_HOSTS = [] до деплоя
 
 
@@ -154,8 +154,9 @@ STATIC_URL = '/static/'
 # ]
 
 # STATICFILES_DIRS = [BASE_DIR / "static"]
-STATICFILES_DIRS = [BASE_DIR.parent / "komunalka/static"]
+# STATICFILES_DIRS = [BASE_DIR.parent / "komunalka/static"]
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
