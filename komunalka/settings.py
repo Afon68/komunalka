@@ -153,8 +153,8 @@ STATIC_URL = '/static/'
 #     os.path.join(BASE_DIR, "crypto_coins/static"),
 # ]
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
-# STATICFILES_DIRS = [BASE_DIR.parent / "komunalka/static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR.parent / "komunalka/static"]
 # STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
