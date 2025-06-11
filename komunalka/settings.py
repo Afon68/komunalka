@@ -43,7 +43,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]").split()
 # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'komunalka-9jok.onrender.com,*.onrender.com').split()
 # ALLOWED_HOSTS = [] до деплоя
-
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
 
 # Application definition
 
