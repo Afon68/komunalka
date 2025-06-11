@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key-for-local-d
 DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://komunalka-9jok.onrender.com",
+    "https://komunalka-eaxj.onrender.com/",
     "https://*.onrender.com"
 ]
 
