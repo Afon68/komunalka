@@ -29,10 +29,11 @@ load_dotenv(dotenv_path=ENV_PATH)
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key-for-local-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://utility_payments.onrender.com",
+    "https://komunalka.onrender.com",
     "https://*.onrender.com"
 ]
 
