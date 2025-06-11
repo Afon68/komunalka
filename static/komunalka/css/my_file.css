@@ -1,0 +1,168 @@
+body {
+  background-image: url('../images/illustracia-anime-goroda (1).jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+  background-color: white;
+}
+
+.font {
+  color: rgb(57, 152, 23);
+}
+
+.mx {
+  margin-left: 6rem;
+  margin-right: 6rem;
+  
+}
+
+.navbar-position {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 200px;
+  z-index: 1000;
+}
+
+.down {
+  margin-top: 5rem;
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.custom-shadow {
+  box-shadow: 0px 10px 20px 0px #4f4f4f37;
+  position: relative;
+  text-decoration: none;
+  color: #000;
+  max-width: 700px
+}
+
+.tochka {
+  text-decoration: none;
+  list-style-type: none;
+}
+
+.product_id {
+  color: gray;
+  font-size: 15px;
+}
+
+.badge.bg-warning.text-dark {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  z-index: 1;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 1rem;
+  box-shadow: 10px 10px 15px rgb(0, 0, 0, 0.3);
+}
+
+.badge-banner {
+  top: 80%;
+  border-radius: 15px;
+  font-size: 0.7rem;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.close:hover {
+  background-color: #d5d5d5;
+}
+
+.custom {
+  box-shadow: 15px 15px 20px rgb(0, 0, 0, 0.4);
+}
+
+.hidden {
+  display: none;
+}  
+
+
+.section {
+  margin: 1em 0;
+}
+
+.local {
+  text-decoration: none;
+  color: black;
+}
+
+.card { 
+   
+  margin-left: -1rem; 
+  margin-right: -1rem; 
+ } 
+
+ .tect {
+   text-decoration: none;
+   color: black;
+ }
+
+ .highlight {
+   background-color: #eaf6ff;
+   padding: 10px;
+   border-left: 4px solid #3498db;
+   margin: 20px 0;
+ }
+
+ code {
+   background-color: #f4f4f4;
+   padding: 2px 6px;
+   border-radius: 4px;
+   font-size: 0.95em;
+ }
+
+ footer {
+   margin-top: 40px;
+   font-size: 0.9em;
+   color: #888;
+   text-align: center;
+ }
+
+ .border-frame {
+   border: 2px solid #cacbcc;
+   /* Синяя рамка */
+   padding: 40px;
+   border-radius: 20px;
+   background-color: #ffffff;
+   /* box-shadow: 50 50 20px rgba(0, 0, 0, 0.05); */
+   max-width: 900px;
+   margin: 10px auto;
+ }
+ .about {
+  max-width:1000px;
+ }
+
+ .cop{
+  margin-left: -1rem;
+ }
+
+ .cors {
+  margin-right: 1rem;
+  padding: -1rem;
+ }
+
+ .text {
+  text-decoration: none;
+  margin-right: 5rem;
+  margin-top: 2rem;
+ }
+
+ .form_one {
+  color: #e92a2a68;
+ }
+ .form {
+  color: #db9334bc;
+ }
