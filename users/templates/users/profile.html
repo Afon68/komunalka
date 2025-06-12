@@ -26,16 +26,19 @@
                                              class="img-fluid rounded-circle"
                                              style="max-width: 150px">
                                     {% else %}
-                                        <img src="{% static "deps/images/profile.png" %}"
+                                        <img src="{% static "komunalka/icons/10478819.jpg" %}"
                                              alt="Аватар пользователя"
                                              class="img-fluid rounded-circle"
                                              style="max-width: 150px">
                                     {% endif %}
                                     <input type="file"
-                                           class="form-control mt-3"
+                                           {% comment %} class="form-control mt-3" {% endcomment %}
+                                           class="custom-file-input"
                                            id="id_image"
                                            name="image"
                                            accept="image/*">
+                                           <label for="id_image" class="custom-file-label  btn btn-success">📁 Вы можете загрузить свой аватар</label>
+                                            <span id="file-name" class="text-muted ms-2"></span> <!-- Покажет имя файла -->
                                     {% if image.errors %}<div class="alert alert-danger alert-dismissible fade show">{{ image.errors }}</div>{% endif %}
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -91,7 +94,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-dark">Сохранить</button>
+                            <button type="submit" class="btn btn-success">Сохранить</button>
                         </form>
                     </div>    
                  </div>    
@@ -139,4 +142,11 @@
             </div>
         </div>
     </div>
+<script>
+  document.getElementById('id_image').addEventListener('change', function () {
+    const fileName = this.files[0] ? this.files[0].name : 'Файл не выбран';
+    document.getElementById('file-name').textContent = fileName;
+  });
+</script>
+
 {% endblock %}
